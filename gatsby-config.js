@@ -1,3 +1,5 @@
+require("dotenv").config({})
+
 const resolveConfig = require("tailwindcss/resolveConfig")
 const tailwindConfig = require("./tailwind.config.js")
 
@@ -26,6 +28,18 @@ module.exports = {
       resolve: "gatsby-plugin-postcss",
       options: {
         postCssPlugins: [require("tailwindcss"), require("autoprefixer")],
+      },
+    },
+    {
+      resolve: `gatsby-source-airtable`,
+      options: {
+        apiKey: process.env.GATSBY_AIRTABLE_API_KEY,
+        tables: [
+          {
+            baseId: process.env.BASE_ID,
+            tableName: "Sheet1",
+          },
+        ],
       },
     },
   ],
