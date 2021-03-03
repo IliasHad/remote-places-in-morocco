@@ -41,7 +41,7 @@ export default ({ data, pageContext }) => {
     <>
       <SEO title="Remote Places In Morocco" />
       <Layout>
-        <div class="w-1/5 gap-8 py-4 flex">
+        <div class="lg:w-1/3 gap-8 py-4 grid grid-cols-1 md:grid-cols-2">
           <div>
             <label
               for="location"
@@ -97,7 +97,7 @@ export default ({ data, pageContext }) => {
             </select>
           </div>
         </div>
-        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-2">
           {places.length > 0 && places.map(node => <ListItem node={node} />)}
         </ul>
       </Layout>
