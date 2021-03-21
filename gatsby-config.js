@@ -42,5 +42,25 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-intl`,
+      options: {
+        // Directory with the strings JSON
+        path: `${__dirname}/src/intl`,
+        // Supported languages
+        languages: [`fr`, `en`],
+        // Default site language
+        defaultLanguage: `en`,
+        // Redirects to `/pt` in the route `/`
+        redirect: true,
+      },
+    },
+    // The only required option is the domain
+    {
+      resolve: `gatsby-plugin-plausible`,
+      options: {
+        domain: `remoteplaces.ma`,
+      },
+    },
   ],
 }
