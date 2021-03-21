@@ -1,11 +1,12 @@
 import React from "react"
+import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
 
-const ListItem = ({ node }) => {
+const ListItem = injectIntl(({ node, intl }) => {
   console.log(node)
   return (
     <>
       <li class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="w-full flex items-center justify-between p-6 space-x-6">
+        <div class="w-full flex flex-col md:flex-row items-center justify-between p-6 space-x-6">
           <div
             style={{ borderRadius: "50%" }}
             class="h-24 w-24 flex flex-col gap-2 justify-center content-center
@@ -30,7 +31,7 @@ const ListItem = ({ node }) => {
             </span>
           </div>
           <div class="flex-1 truncate">
-            <div class="flex items-center space-x-3">
+            <div class="flex flex-col md:flex-row gap-3 m-3 items-center space-x-3">
               <h3 class="text-gray-900 text-md font-medium truncate">
                 {node.Name}
               </h3>
@@ -39,7 +40,7 @@ const ListItem = ({ node }) => {
               </span>
             </div>
 
-            <div class="my-4">
+            <div class="my-4 flex-col flex md:block md:flex-row  items-center gap-3 m-3  ">
               {node.Features.map(feature => (
                 <span class="flex-shrink-0 inline-block px-4 py-1 text-sm font-medium bg-gray-100 rounded-full">
                   {feature}
@@ -47,7 +48,7 @@ const ListItem = ({ node }) => {
               ))}
             </div>
 
-            <div class="mt-4 flex gap-8  text-sm truncate">
+            <div class="mt-4 flex-col md:flex-row flex gap-8  text-sm truncate">
               <div class="flex justify-center flex-col align-middle items-center">
                 <svg
                   class="w-5 h-5 my-2 text-purple-600"
@@ -63,7 +64,9 @@ const ListItem = ({ node }) => {
                     d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                   />
                 </svg>
-                <span class="text-gray-800">{node.Rating} Rating</span>
+                <span class="text-gray-800">
+                  {node.Rating} {intl.formatMessage({ id: "rating" })}
+                </span>
               </div>
 
               <div class="flex justify-center flex-col align-middle items-center">
@@ -150,7 +153,7 @@ const ListItem = ({ node }) => {
         </div>
         <div>
           <div class="-mt-px flex divide-x divide-gray-200">
-            <div class="-ml-px w-0 flex-1 flex">
+            <div class="-ml-px md:w-0 sm:w-full sm:flex-col sm:items-center flex-1 flex">
               <a
                 target="__blank"
                 href={node.link}
@@ -170,7 +173,9 @@ const ListItem = ({ node }) => {
                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                   />
                 </svg>
-                <span class="ml-3">Visit Link</span>
+                <span class="ml-3">
+                  {intl.formatMessage({ id: "visitLink" })}
+                </span>
               </a>
             </div>
           </div>
@@ -178,6 +183,6 @@ const ListItem = ({ node }) => {
       </li>
     </>
   )
-}
+})
 
 export default ListItem

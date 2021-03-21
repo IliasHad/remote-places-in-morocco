@@ -3,7 +3,9 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import ListItem from "../components/listItem"
 import { graphql } from "gatsby"
-export default ({ data, pageContext }) => {
+import { injectIntl } from "gatsby-plugin-intl"
+
+export default injectIntl(({ data, pageContext, intl }) => {
   const [cities, setCities] = useState([])
   const [places, setPlaces] = useState([])
   const [sorting, setSorting] = useState("upload-speed")
@@ -35,19 +37,19 @@ export default ({ data, pageContext }) => {
     }
 
     setPlaces(selectedPlaces)
-  }, [selectedCity, sorting])
+  }, [selectedCity, sorting, data.allAirtable.edges])
 
   return (
     <>
       <SEO title="Remote Places In Morocco" />
-      <Layout>
+      <Layout heading={intl.formatMessage({ id: "heading" })}>
         <div class="lg:w-1/3 gap-8 py-4 grid grid-cols-1 md:grid-cols-2">
           <div>
             <label
               for="location"
               class="block text-sm font-medium text-gray-700"
             >
-              City
+              {intl.formatMessage({ id: "city" })}
             </label>
             <select
               onChange={e => setSelectedCity(e.target.value)}
@@ -56,7 +58,7 @@ export default ({ data, pageContext }) => {
               class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
               <option value="All" select={selectedCity === "All"}>
-                All Cities
+                {intl.formatMessage({ id: "allCities" })}
               </option>
               {cities.map(city => (
                 <option value={city} select={selectedCity === city}>
@@ -71,7 +73,7 @@ export default ({ data, pageContext }) => {
               for="location"
               class="block text-sm font-medium text-gray-700"
             >
-              Sorting
+              {intl.formatMessage({ id: "sorting" })}
             </label>
             <select
               onChange={e => setSorting(e.target.value)}
@@ -83,27 +85,27 @@ export default ({ data, pageContext }) => {
                 value="upload-speed"
                 selected={sorting === "upload-speed"}
               >
-                Upload Speed
+                {intl.formatMessage({ id: "upload" })}
               </option>
               <option
                 value="download-speed"
                 selected={sorting === "download-speed"}
               >
-                Download Speed
+                {intl.formatMessage({ id: "download" })}
               </option>
               <option value="rating" selected={sorting === "rating"}>
-                Rating
+                {intl.formatMessage({ id: "rating" })}
               </option>
             </select>
           </div>
         </div>
-        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-2">
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
           {places.length > 0 && places.map(node => <ListItem node={node} />)}
         </ul>
       </Layout>
     </>
   )
-}
+})
 
 export const query = graphql`
   query {
